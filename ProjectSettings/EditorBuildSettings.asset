@@ -6,8 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Level_01_Security_Facility.unity
+    guid: ad8daf9861301a44e9ac16c756c90042
+  - enabled: 1
+    path: Assets/Scenes/Level_02_Laboratory_Complex.unity
+    guid: 3b95ba35f43d579478ff8206cf1e6d14
+  - enabled: 1
+    path: Assets/Scenes/Level_03_Night_Industrial.unity
+    guid: 8ebaafec86123754f8a669ae52c61f3e
+  - enabled: 1
+    path: Assets/Scenes/Level_04_Mansion_Interior.unity
+    guid: fe56cccb2199f364fa50fd0c9bc24c5f
+  - enabled: 1
+    path: Assets/Scenes/Level_05_Overgrown_Ruins.unity
+    guid: df4d68589000d9942b324727cf3adeef
   m_configObjects:
     com.unity.dt.app-ui: {fileID: 11400000, guid: 1b1c20d82303e4b5781c3ef50ac1449f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
