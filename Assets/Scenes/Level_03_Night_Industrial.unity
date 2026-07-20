@@ -119,7 +119,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &172316314
+--- !u!1 &44423972
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -127,39 +127,65 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 172316316}
-  - component: {fileID: 172316315}
+  - component: {fileID: 44423974}
+  - component: {fileID: 44423973}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: MazeBuilder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &172316315
+--- !u!114 &44423973
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172316314}
+  m_GameObject: {fileID: 44423972}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d2b20fc0cf6bd84faf1e87d2466de6a, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ff2e6874ad530e4ab73c0b996b518d2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  winPanel: {fileID: 0}
-  losePanel: {fileID: 0}
-  drawBuiltInHud: 1
-  drawIdentificationMeter: 1
-  levelTitleOverride: "LEVEL 3 \u2014 NIGHT INDUSTRIAL"
---- !u!4 &172316316
+  m_EditorClassIdentifier: Assembly-CSharp::MazeBuilder
+  width: 43
+  height: 31
+  cellSize: 1
+  randomSeed: 2303
+  layoutType: 3
+  visualTheme: 2
+  extraConnections: 34
+  roomCount: 7
+  roomMinSize: 3
+  roomMaxSize: 7
+  buildOnAwake: 1
+  guardCount: 9
+  hidingSpotCount: 12
+  patrolPointsPerGuard: 5
+  characterResourcePath: Sprites/PlayerPatrol
+  guardSpriteResourcePaths:
+  - Sprites/PatrolStandard
+  - Sprites/PatrolHeavy
+  - Sprites/PatrolScout
+  - Sprites/PatrolElite
+  playerVisualHeight: 0.98
+  guardVisualHeight: 0.8
+  guardBaseTint: {r: 1, g: 1, b: 1, a: 1}
+  playerSpeed: 4.5
+  guardPatrolSpeed: 2.1
+  guardChaseSpeed: 3.45
+  guardIdentificationTime: 1.6
+  drawWallShadows: 1
+  wallShadowOffset: 0.09
+  floorColourVariation: 0.07
+  ambientPropCount: 48
+--- !u!4 &44423974
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 172316314}
+  m_GameObject: {fileID: 44423972}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -168,7 +194,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &928746152
+--- !u!1 &327519854
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,11 +202,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 928746157}
-  - component: {fileID: 928746156}
-  - component: {fileID: 928746155}
-  - component: {fileID: 928746154}
-  - component: {fileID: 928746153}
+  - component: {fileID: 327519859}
+  - component: {fileID: 327519858}
+  - component: {fileID: 327519857}
+  - component: {fileID: 327519856}
+  - component: {fileID: 327519855}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -188,13 +214,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &928746153
+--- !u!114 &327519855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928746152}
+  m_GameObject: {fileID: 327519854}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbb20a7bc4bee6248a44d07dd35bdb71, type: 3}
@@ -202,13 +228,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::StealthScreenOverlay
   vignetteStrength: 0.72
   dangerStrength: 0.55
---- !u!114 &928746154
+--- !u!114 &327519856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928746152}
+  m_GameObject: {fileID: 327519854}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a49e1f66ff745864dbd09928155f1e5e, type: 3}
@@ -221,21 +247,21 @@ MonoBehaviour:
   dangerZoom: 4.8
   zoomResponse: 5
   lookAheadStrength: 0.38
---- !u!81 &928746155
+--- !u!81 &327519857
 AudioListener:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928746152}
+  m_GameObject: {fileID: 327519854}
   m_Enabled: 1
---- !u!20 &928746156
+--- !u!20 &327519858
 Camera:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928746152}
+  m_GameObject: {fileID: 327519854}
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
@@ -280,13 +306,13 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!4 &928746157
+--- !u!4 &327519859
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 928746152}
+  m_GameObject: {fileID: 327519854}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -10}
@@ -295,7 +321,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1324712954
+--- !u!1 &1121997074
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -303,65 +329,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1324712956}
-  - component: {fileID: 1324712955}
+  - component: {fileID: 1121997076}
+  - component: {fileID: 1121997075}
   m_Layer: 0
-  m_Name: MazeBuilder
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1324712955
+--- !u!114 &1121997075
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324712954}
+  m_GameObject: {fileID: 1121997074}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8ff2e6874ad530e4ab73c0b996b518d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d2b20fc0cf6bd84faf1e87d2466de6a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MazeBuilder
-  width: 43
-  height: 31
-  cellSize: 1
-  randomSeed: 2303
-  layoutType: 3
-  visualTheme: 2
-  extraConnections: 34
-  roomCount: 7
-  roomMinSize: 3
-  roomMaxSize: 7
-  buildOnAwake: 1
-  guardCount: 9
-  hidingSpotCount: 12
-  patrolPointsPerGuard: 5
-  characterResourcePath: Sprites/PlayerPatrol
-  guardSpriteResourcePaths:
-  - Sprites/PatrolStandard
-  - Sprites/PatrolHeavy
-  - Sprites/PatrolScout
-  - Sprites/PatrolElite
-  playerVisualHeight: 0.98
-  guardVisualHeight: 0.8
-  guardBaseTint: {r: 1, g: 1, b: 1, a: 1}
-  playerSpeed: 4.5
-  guardPatrolSpeed: 2.1
-  guardChaseSpeed: 3.45
-  guardIdentificationTime: 1.6
-  drawWallShadows: 1
-  wallShadowOffset: 0.09
-  floorColourVariation: 0.07
-  ambientPropCount: 48
---- !u!4 &1324712956
+  m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  winPanel: {fileID: 0}
+  losePanel: {fileID: 0}
+  drawBuiltInHud: 1
+  drawIdentificationMeter: 1
+  levelTitleOverride: "LEVEL 3 \u2014 TRAINING GROUND"
+--- !u!4 &1121997076
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1324712954}
+  m_GameObject: {fileID: 1121997074}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -374,6 +374,6 @@ Transform:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 172316316}
-  - {fileID: 1324712956}
-  - {fileID: 928746157}
+  - {fileID: 1121997076}
+  - {fileID: 44423974}
+  - {fileID: 327519859}

@@ -48,16 +48,16 @@ public static class KickoffCompleteGameSetup
     {
         new LevelDefinition(
             "Level_01_Security_Facility.unity",
-            "LEVEL 1 — SECURITY FACILITY",
+            "LEVEL 1 — STADIUM TUNNEL",
             MazeBuilder.MazeLayoutType.SecurityCompound,
-            MazeBuilder.VisualTheme.SecurityFacility,
+            MazeBuilder.VisualTheme.StadiumVault,
             2101,
             7,
             7,
             30),
         new LevelDefinition(
             "Level_02_Laboratory_Complex.unity",
-            "LEVEL 2 — LABORATORY COMPLEX",
+            "LEVEL 2 — TEAM HOTEL",
             MazeBuilder.MazeLayoutType.ClassicLabyrinth,
             MazeBuilder.VisualTheme.LaboratoryComplex,
             2202,
@@ -66,7 +66,7 @@ public static class KickoffCompleteGameSetup
             36),
         new LevelDefinition(
             "Level_03_Night_Industrial.unity",
-            "LEVEL 3 — NIGHT INDUSTRIAL",
+            "LEVEL 3 — TRAINING GROUND",
             MazeBuilder.MazeLayoutType.TwinRoutes,
             MazeBuilder.VisualTheme.NightIndustrial,
             2303,
@@ -75,7 +75,7 @@ public static class KickoffCompleteGameSetup
             34),
         new LevelDefinition(
             "Level_04_Mansion_Interior.unity",
-            "LEVEL 4 — MANSION INTERIOR",
+            "LEVEL 4 — VIP LOUNGE",
             MazeBuilder.MazeLayoutType.SpiralLockdown,
             MazeBuilder.VisualTheme.MansionInterior,
             2404,
@@ -84,7 +84,7 @@ public static class KickoffCompleteGameSetup
             30),
         new LevelDefinition(
             "Level_05_Overgrown_Ruins.unity",
-            "LEVEL 5 — OVERGROWN RUINS",
+            "LEVEL 5 — OLD STADIUM",
             MazeBuilder.MazeLayoutType.ArenaMaze,
             MazeBuilder.VisualTheme.OvergrownRuins,
             2505,

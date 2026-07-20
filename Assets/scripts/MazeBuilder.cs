@@ -25,7 +25,8 @@ public class MazeBuilder : MonoBehaviour
         LaboratoryComplex,
         NightIndustrial,
         MansionInterior,
-        OvergrownRuins
+        OvergrownRuins,
+        StadiumVault
     }
 
     private enum GuardArchetype
