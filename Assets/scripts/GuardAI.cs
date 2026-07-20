@@ -209,11 +209,8 @@ public class GuardAI : MonoBehaviour
         }
 
         DetectionProgress = Mathf.Clamp01(DetectionProgress);
-        if (DetectionProgress >= 1f && playerController != null && !playerController.IsHidden)
-        {
-            DetectionProgress = 1f;
-            playerController.GetIdentified();
-        }
+        // Meter reaching 100% is a visual warning only — game over is
+        // triggered exclusively by physical contact (OnCollisionStay2D).
     }
 
     private void UpdatePatrol(bool seesPlayer)
@@ -267,18 +264,6 @@ public class GuardAI : MonoBehaviour
         {
             SetDestination(seesPlayer ? (Vector2)player.position : lastKnownPlayerPosition, true);
             repathTimer = repathInterval;
-        }
-
-        if (playerController != null && !playerController.IsHidden &&
-            Vector2.Distance(rb.position, player.position) <= directContactDistance)
-        {
-            DetectionProgress = Mathf.Clamp01(
-                DetectionProgress + Time.deltaTime / Mathf.Max(0.1f, identificationTime * 0.28f));
-            if (DetectionProgress >= 1f)
-            {
-                playerController.GetIdentified();
-                return;
-            }
         }
 
         if (!seesPlayer && timeSincePlayerSeen >= lostSightGraceTime)
@@ -572,17 +557,13 @@ public class GuardAI : MonoBehaviour
     private void OnCollisionStay2D(Collision2D collision)
     {
         PlayerController collidedPlayer = collision.collider.GetComponentInParent<PlayerController>();
-        if (collidedPlayer == null || collidedPlayer.IsHidden)
+        if (collidedPlayer == null || collidedPlayer.IsHidden || collidedPlayer.IsCaught)
         {
             return;
         }
 
-        DetectionProgress = Mathf.Clamp01(
-            DetectionProgress + Time.fixedDeltaTime / Mathf.Max(0.1f, identificationTime * 0.24f));
-        if (DetectionProgress >= 1f)
-        {
-            collidedPlayer.GetIdentified();
-        }
+        // Physical touch = immediate game over (no fill delay required).
+        collidedPlayer.GetCaught();
     }
 
     private void IgnoreOtherGuardCollisions()

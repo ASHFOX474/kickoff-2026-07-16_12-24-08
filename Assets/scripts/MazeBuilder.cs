@@ -26,7 +26,11 @@ public class MazeBuilder : MonoBehaviour
         NightIndustrial,
         MansionInterior,
         OvergrownRuins,
-        StadiumVault
+        StadiumVault,
+        TrainingGround,
+        TrophyRoom,
+        LockerRoom,
+        OldStadium
     }
 
     private enum GuardArchetype
@@ -681,6 +685,7 @@ public class MazeBuilder : MonoBehaviour
 
         PlayerController controller = playerObject.AddComponent<PlayerController>();
         controller.moveSpeed = playerSpeed;
+        playerObject.AddComponent<SpriteWalkAnimator2D>().Initialize(characterResourcePath, body);
         return controller;
     }
 
@@ -815,6 +820,9 @@ public class MazeBuilder : MonoBehaviour
             cone.guard = guard;
             cone.sortingOrder = 12;
             ConfigureVisionCone(cone, archetype);
+
+            guardObject.AddComponent<SpriteWalkAnimator2D>().Initialize(
+                guardSpriteResourcePaths[(int)archetype], body);
         }
     }
 

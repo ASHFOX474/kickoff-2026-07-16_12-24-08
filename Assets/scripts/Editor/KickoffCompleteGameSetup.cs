@@ -48,49 +48,34 @@ public static class KickoffCompleteGameSetup
     {
         new LevelDefinition(
             "Level_01_Security_Facility.unity",
-            "LEVEL 1 — STADIUM TUNNEL",
+            "LEVEL 1 - STADIUM TUNNEL",
             MazeBuilder.MazeLayoutType.SecurityCompound,
             MazeBuilder.VisualTheme.StadiumVault,
-            2101,
-            7,
-            7,
-            30),
+            2101, 7, 7, 30),
         new LevelDefinition(
             "Level_02_Laboratory_Complex.unity",
-            "LEVEL 2 — TEAM HOTEL",
+            "LEVEL 2 - TRAINING GROUND",
             MazeBuilder.MazeLayoutType.ClassicLabyrinth,
-            MazeBuilder.VisualTheme.LaboratoryComplex,
-            2202,
-            8,
-            9,
-            36),
+            MazeBuilder.VisualTheme.TrainingGround,
+            2202, 8, 9, 36),
         new LevelDefinition(
             "Level_03_Night_Industrial.unity",
-            "LEVEL 3 — TRAINING GROUND",
+            "LEVEL 3 - LOCKER ROOM",
             MazeBuilder.MazeLayoutType.TwinRoutes,
-            MazeBuilder.VisualTheme.NightIndustrial,
-            2303,
-            9,
-            7,
-            34),
+            MazeBuilder.VisualTheme.LockerRoom,
+            2303, 9, 7, 34),
         new LevelDefinition(
             "Level_04_Mansion_Interior.unity",
-            "LEVEL 4 — VIP LOUNGE",
+            "LEVEL 4 - TROPHY ROOM",
             MazeBuilder.MazeLayoutType.SpiralLockdown,
-            MazeBuilder.VisualTheme.MansionInterior,
-            2404,
-            10,
-            8,
-            30),
+            MazeBuilder.VisualTheme.TrophyRoom,
+            2404, 10, 8, 30),
         new LevelDefinition(
             "Level_05_Overgrown_Ruins.unity",
-            "LEVEL 5 — OLD STADIUM",
+            "LEVEL 5 - OLD STADIUM",
             MazeBuilder.MazeLayoutType.ArenaMaze,
-            MazeBuilder.VisualTheme.OvergrownRuins,
-            2505,
-            11,
-            6,
-            40)
+            MazeBuilder.VisualTheme.OldStadium,
+            2505, 11, 6, 40)
     };
 
     [InitializeOnLoadMethod]
@@ -226,6 +211,7 @@ public static class KickoffCompleteGameSetup
         builder.randomSeed = level.Seed;
         builder.layoutType = level.Layout;
         builder.visualTheme = level.Theme;
+        builder.floorColourVariation = 0.16f;
         builder.extraConnections = level.Connections;
         builder.roomCount = level.Rooms;
         builder.roomMinSize = 3;
@@ -243,7 +229,7 @@ public static class KickoffCompleteGameSetup
         cameraObject.tag = "MainCamera";
         Camera camera = cameraObject.AddComponent<Camera>();
         camera.orthographic = true;
-        camera.orthographicSize = 5.35f;
+        camera.orthographicSize = 4.5f;
         camera.clearFlags = CameraClearFlags.SolidColor;
         camera.backgroundColor = new Color(0.005f, 0.012f, 0.025f);
         cameraObject.transform.position = new Vector3(0f, 0f, -10f);

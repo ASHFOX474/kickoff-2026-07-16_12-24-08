@@ -77,9 +77,9 @@ public class GameManager : MonoBehaviour
 
     public void OnPlayerIdentified()
     {
+        // Identification meter fills up as a warning, but game over is
+        // triggered only by physical guard contact (OnPlayerCaught).
         HighestIdentification = 1f;
-        PlayerWon = false;
-        FinishGame("FULLY IDENTIFIED", losePanel);
     }
 
     public void OnPlayerWin()
@@ -116,10 +116,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void QuitGame()
+    public void LoadMainMenu()
     {
         Time.timeScale = 1f;
-        Application.Quit();
+        SceneManager.LoadScene(0);
     }
 
     private void FinishGame(string heading, GameObject panel)
@@ -179,8 +179,8 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        float width = 430f;
-        float height = PlayerWon ? 300f : 255f;
+        float width = 480f;
+        float height = PlayerWon ? 370f : 340f;
         Rect panel = new Rect(
             (Screen.width - width) * 0.5f,
             (Screen.height - height) * 0.5f,
@@ -192,49 +192,66 @@ public class GameManager : MonoBehaviour
         GUI.color = Color.white;
 
         string heading = IsGameOver ? resultText : "PAUSED";
-        GUI.Label(new Rect(panel.x + 20f, panel.y + 25f, width - 40f, 55f), heading, titleStyle);
+        GUI.Label(new Rect(panel.x + 20f, panel.y + 28f, width - 40f, 65f), heading, titleStyle);
+
+        float btnX = panel.x + (width - 260f) * 0.5f;
+        float btnW = 260f;
+        float btnH = 52f;
+        float spacing = 62f;
+        float firstBtnY = panel.y + 115f;
 
         if (IsGameOver && PlayerWon)
         {
             string nextLabel = IsFinalLevel() ? "Play Again" : "Next Level";
-            if (GUI.Button(new Rect(panel.x + 105f, panel.y + 100f, 220f, 46f), nextLabel, buttonStyle))
-            {
+            if (GUI.Button(new Rect(btnX, firstBtnY, btnW, btnH), nextLabel, buttonStyle))
                 LoadNextLevel();
-            }
 
-            if (GUI.Button(new Rect(panel.x + 105f, panel.y + 158f, 220f, 42f), "Replay Level", buttonStyle))
-            {
+            if (GUI.Button(new Rect(btnX, firstBtnY + spacing, btnW, btnH), "Replay Level", buttonStyle))
                 Restart();
-            }
+
+            if (GUI.Button(new Rect(btnX, firstBtnY + spacing * 2f, btnW, btnH), "Main Menu", buttonStyle))
+                LoadMainMenu();
         }
         else if (IsGameOver)
         {
-            if (GUI.Button(new Rect(panel.x + 105f, panel.y + 100f, 220f, 46f), "Retry", buttonStyle))
-            {
+            if (GUI.Button(new Rect(btnX, firstBtnY, btnW, btnH), "Retry", buttonStyle))
                 Restart();
-            }
-        }
-        else if (GUI.Button(new Rect(panel.x + 105f, panel.y + 100f, 220f, 46f), "Continue", buttonStyle))
-        {
-            TogglePause();
-        }
 
-        float quitY = PlayerWon ? panel.y + 220f : panel.y + 165f;
-        if (GUI.Button(new Rect(panel.x + 105f, quitY, 220f, 38f), "Quit", buttonStyle))
+            if (GUI.Button(new Rect(btnX, firstBtnY + spacing, btnW, btnH), "Main Menu", buttonStyle))
+                LoadMainMenu();
+        }
+        else
         {
-            QuitGame();
+            // Paused
+            if (GUI.Button(new Rect(btnX, firstBtnY, btnW, btnH), "Continue", buttonStyle))
+                TogglePause();
+
+            if (GUI.Button(new Rect(btnX, firstBtnY + spacing, btnW, btnH), "Main Menu", buttonStyle))
+                LoadMainMenu();
         }
     }
 
     private void DrawMissionPanel()
     {
-        Rect panel = new Rect(14f, 14f, 360f, 78f);
+        Rect panel = new Rect(14f, 14f, 420f, 90f);
         GUI.color = new Color(0.025f, 0.045f, 0.075f, 0.92f);
         GUI.Box(panel, GUIContent.none);
         GUI.color = Color.white;
 
-        GUI.Label(new Rect(27f, 20f, 334f, 28f), GetLevelTitle(), levelStyle);
-        GUI.Label(new Rect(27f, 51f, 334f, 25f), "WASD / arrows  •  hide  •  reach EXIT", bodyStyle);
+        GUI.Label(new Rect(27f, 20f, 380f, 34f), GetLevelTitle(), levelStyle);
+        GUI.Label(new Rect(27f, 58f, 380f, 30f), "WASD / arrows  •  hide  •  reach EXIT", bodyStyle);
+
+        // Pause button — top-right corner of screen
+        if (!IsGameOver)
+        {
+            float btnW = 80f;
+            float btnH = 44f;
+            if (GUI.Button(new Rect(Screen.width - btnW - 14f, 14f, btnW, btnH),
+                IsPaused ? "▶" : "⏸", buttonStyle))
+            {
+                TogglePause();
+            }
+        }
     }
 
     private void DrawIdentificationMeter()
@@ -296,7 +313,7 @@ public class GameManager : MonoBehaviour
         titleStyle = new GUIStyle(GUI.skin.label)
         {
             alignment = TextAnchor.MiddleCenter,
-            fontSize = 25,
+            fontSize = 38,
             fontStyle = FontStyle.Bold,
             normal = { textColor = Color.white }
         };
@@ -304,7 +321,7 @@ public class GameManager : MonoBehaviour
         levelStyle = new GUIStyle(GUI.skin.label)
         {
             alignment = TextAnchor.MiddleLeft,
-            fontSize = 18,
+            fontSize = 26,
             fontStyle = FontStyle.Bold,
             normal = { textColor = new Color(0.32f, 0.88f, 1f) }
         };
@@ -312,21 +329,21 @@ public class GameManager : MonoBehaviour
         bodyStyle = new GUIStyle(GUI.skin.label)
         {
             alignment = TextAnchor.MiddleLeft,
-            fontSize = 13,
+            fontSize = 20,
             normal = { textColor = new Color(0.88f, 0.92f, 0.96f) }
         };
 
         meterLabelStyle = new GUIStyle(GUI.skin.label)
         {
             alignment = TextAnchor.MiddleCenter,
-            fontSize = 14,
+            fontSize = 22,
             fontStyle = FontStyle.Bold,
             normal = { textColor = Color.white }
         };
 
         buttonStyle = new GUIStyle(GUI.skin.button)
         {
-            fontSize = 17,
+            fontSize = 24,
             fontStyle = FontStyle.Bold
         };
     }

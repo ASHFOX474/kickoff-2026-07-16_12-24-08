@@ -16,6 +16,7 @@ public class GuardVisionCone : MonoBehaviour
     [Range(8, 96)] public int rayCount = 40;
     [Min(0.02f)] public float originOffset = 0.08f;
     public int sortingOrder = 12;
+    public bool showVisionCone = false;
 
     [Header("Radar colours")]
     public Color patrolColour = new Color(1f, 0.08f, 0.10f, 0.22f);
@@ -84,8 +85,9 @@ public class GuardVisionCone : MonoBehaviour
         }
 
         bool gameplayRunning = GameManager.Instance == null || GameManager.Instance.IsGameplayRunning;
-        meshRenderer.enabled = gameplayRunning;
-        if (!gameplayRunning)
+        bool visible = gameplayRunning && showVisionCone;
+        meshRenderer.enabled = visible;
+        if (!visible)
         {
             return;
         }

@@ -7,10 +7,10 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// Opening cinematic: the World Cup on its pedestal, two hands steal it from the dark,
-/// then the reveal - it's Messi, in Argentina blue-and-white, holding the cup.
+/// then the reveal - it's your player, in Spain's red and navy, holding the cup.
 /// Drawn entirely with OnGUI primitives so it needs zero extra art assets and can't
 /// go missing/pink in a last-minute build. Advance with any key/click, or it auto-advances.
-/// Put this on an empty GameObject in its own scene (build index 0) and set
+/// Put this on an empty GameObject in its own scene (build index after the menu) and set
 /// nextSceneName to your first playable level.
 /// </summary>
 [DisallowMultipleComponent]
@@ -26,7 +26,10 @@ public class IntroCutscene : MonoBehaviour
     public float beatTheft = 1.0f;
     public float beatBlackout = 0.6f;
     public float beatReveal = 2.4f;
-    public float beatTitle = 2.2f;
+    public float beatTitle = 2.4f;
+
+    [Header("Look")]
+    [Range(0f, 0.2f)] public float letterboxHeight01 = 0.09f;
 
     private enum Beat { Spotlight, HandsReach, Theft, Blackout, Reveal, Title, Done }
 
@@ -100,7 +103,6 @@ public class IntroCutscene : MonoBehaviour
     {
         EnsureStyles();
 
-        // Full black backdrop for every beat.
         DrawRect(new Rect(0, 0, Screen.width, Screen.height), Color.black);
 
         float cx = Screen.width * 0.5f;
@@ -111,7 +113,7 @@ public class IntroCutscene : MonoBehaviour
             case Beat.Spotlight:
                 DrawSpotlight(cx, cy, 90f);
                 DrawTrophy(cx, cy, 1f);
-                DrawCaption("BUENOS AIRES. THE NIGHT BEFORE THE FINAL.", 0.85f);
+                DrawCaption("A STADIUM VAULT. THE NIGHT BEFORE THE FINAL.", 0.85f);
                 break;
 
             case Beat.HandsReach:
@@ -134,19 +136,21 @@ public class IntroCutscene : MonoBehaviour
                 {
                     float t = Mathf.Clamp01(beatTimer / 0.6f);
                     DrawSpotlight(cx, cy, Mathf.Lerp(0f, 130f, t));
-                    DrawArgentinaFigure(cx, cy, t);
+                    DrawSpainFigure(cx, cy, t);
                     DrawTrophy(cx, cy - 130f, Mathf.Clamp01((beatTimer - 0.3f) / 0.5f));
-                    DrawCaption("IT WAS HIM ALL ALONG.", Mathf.Clamp01((beatTimer - 1.2f)));
+                    DrawCaption("IT IS YAMAL.", Mathf.Clamp01(beatTimer - 0.9f));
                 }
                 break;
 
             case Beat.Title:
                 DrawSpotlight(cx, cy, 130f);
-                DrawArgentinaFigure(cx, cy, 1f);
+                DrawSpainFigure(cx, cy, 1f);
                 DrawTrophy(cx, cy - 130f, 1f);
-                DrawBigTitle("MESSI HAS THE CUP.", "NOW GET IT PAST EVERY TEAM THAT WANTS IT BACK.");
+                DrawBigTitle("THE CUP IS OUT.", "GET IT PAST EVERY TEAM THAT WANTS IT BACK.");
                 break;
         }
+
+        DrawLetterbox();
 
         if (allowSkip && beat != Beat.Done)
         {
@@ -155,6 +159,14 @@ public class IntroCutscene : MonoBehaviour
     }
 
     // ---------- primitive "actors" drawn with GUI rects/labels, no art required ----------
+
+    private void DrawLetterbox()
+    {
+        if (letterboxHeight01 <= 0f) return;
+        float h = Screen.height * letterboxHeight01;
+        DrawRect(new Rect(0, 0, Screen.width, h), Color.black);
+        DrawRect(new Rect(0, Screen.height - h, Screen.width, h), Color.black);
+    }
 
     private void DrawSpotlight(float cx, float cy, float radius)
     {
@@ -173,11 +185,8 @@ public class IntroCutscene : MonoBehaviour
     {
         if (alpha01 <= 0f) return;
         Color gold = new Color(1f, 0.82f, 0.15f, alpha01);
-        // base
         DrawRect(new Rect(cx - 18f, cy + 40f, 36f, 8f), gold);
-        // stem
         DrawRect(new Rect(cx - 4f, cy + 10f, 8f, 32f), gold);
-        // cup body (stacked rects approximate the trophy silhouette)
         DrawRect(new Rect(cx - 16f, cy - 4f, 32f, 16f), gold);
         DrawRect(new Rect(cx - 22f, cy - 18f, 44f, 16f), gold);
         DrawRect(new Rect(cx - 14f, cy - 34f, 28f, 18f), gold);
@@ -188,32 +197,25 @@ public class IntroCutscene : MonoBehaviour
         if (reach01 <= 0f) return;
         Color skin = new Color(0.55f, 0.35f, 0.22f, 1f);
         float offset = Mathf.Lerp(260f, 30f, reach01);
-        // left hand
         DrawRect(new Rect(cx - offset - 20f, cy - 10f, 40f, 20f), skin);
         DrawRect(new Rect(cx - offset - 30f, cy - 30f, 20f, 40f), skin);
-        // right hand
         DrawRect(new Rect(cx + offset - 20f, cy - 10f, 40f, 20f), skin);
         DrawRect(new Rect(cx + offset + 10f, cy - 30f, 20f, 40f), skin);
     }
 
-    private void DrawArgentinaFigure(float cx, float cy, float alpha01)
+    private void DrawSpainFigure(float cx, float cy, float alpha01)
     {
         if (alpha01 <= 0f) return;
-        Color skyBlue = new Color(0.42f, 0.67f, 0.87f, alpha01);
-        Color white = new Color(1f, 1f, 1f, alpha01);
+        Color red = new Color(0.78f, 0.06f, 0.18f, alpha01);
+        Color navy = new Color(0.1f, 0.16f, 0.29f, alpha01);
         Color skin = new Color(0.86f, 0.62f, 0.42f, alpha01);
         Color hair = new Color(0.2f, 0.13f, 0.08f, alpha01);
 
-        // legs
-        DrawRect(new Rect(cx - 20f, cy + 60f, 16f, 50f), white);
-        DrawRect(new Rect(cx + 4f, cy + 60f, 16f, 50f), white);
-        // striped torso
-        float stripeW = 8f;
-        for (int i = 0; i < 5; i++)
-        {
-            Color c = (i % 2 == 0) ? skyBlue : white;
-            DrawRect(new Rect(cx - 20f + i * stripeW, cy - 10f, stripeW, 70f), c);
-        }
+        // legs (navy shorts + socks)
+        DrawRect(new Rect(cx - 20f, cy + 60f, 16f, 50f), navy);
+        DrawRect(new Rect(cx + 4f, cy + 60f, 16f, 50f), navy);
+        // torso (solid red shirt)
+        DrawRect(new Rect(cx - 20f, cy - 10f, 40f, 70f), red);
         // arms raised (holding the cup up)
         DrawRect(new Rect(cx - 34f, cy - 40f, 14f, 40f), skin);
         DrawRect(new Rect(cx + 20f, cy - 40f, 14f, 40f), skin);

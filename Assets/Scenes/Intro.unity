@@ -248,6 +248,7 @@ MonoBehaviour:
   beatBlackout: 0.6
   beatReveal: 2.4
   beatTitle: 2.2
+  letterboxHeight01: 0
 --- !u!4 &346457647
 Transform:
   m_ObjectHideFlags: 0
